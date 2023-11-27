@@ -25,9 +25,7 @@ class ExploratoryAnalysis:
         return "Total number of students enrolled across all schools: {:,.0f}".format(self.df.total_students.sum())
 
     def matplot_hist_total_students(self):
-        """
-        Generate and display a histogram of the total number of students using Matplotlib.
-        """
+        """Generate and display a histogram of the total number of students using Matplotlib."""
         plt.hist(self.df["total_students"], bins=20)
         plt.xlabel("Total Students")
         plt.ylabel("Frequency")
@@ -75,9 +73,7 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def seaborn_bar_borough_tot_students(self):
-        """
-        Generate and display a barplot showing the distribution of students enrolled in each borough using Seaborn.
-        """
+        """Generate and display a barplot showing the distribution of students enrolled in each borough using Seaborn."""
         ax = sb.barplot(self.df, x="borough", y="total_students", errorbar=None, estimator="sum")
         plt.xlabel("Borough of School")
         plt.ylabel("Number of Students")
@@ -97,17 +93,13 @@ class ExploratoryAnalysis:
             self.df['extracurricular_activities'].apply(lambda x: str(x).split(', ')).explode().nunique())
 
     def activities_desc(self):
-        """
-        Describe the field 'num_ext_act' representing the number of extracurricular activities.
-        """
+        """Describe the field 'num_ext_act' representing the number of extracurricular activities."""
         self.df["num_ext_act"] = self.df['extracurricular_activities'].apply(
             lambda x: max(len(str(x).split(', ')), 0))
         return self.df["num_ext_act"].describe()
 
     def matplot_scatter_tot_studs_vs_activities(self):
-        """
-        Generate and display a scatter plot of total_students vs the number of extracurricular activities offered using Matplotlib.
-        """
+        """Generate and display a scatter plot of total_students vs the number of extracurricular activities offered using Matplotlib."""
         plt.scatter(x=self.df["total_students"], y=self.df["num_ext_act"])
         plt.xlabel("Number of students")
         plt.ylabel("Number of Extracurricular activities offered")
@@ -115,9 +107,7 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def seaborn_scatter_tot_studs_vs_activities(self):
-        """
-        Generate and display a scatter plot of total_students vs the number of extracurricular activities offered using Seaborn.
-        """
+        """Generate and display a scatter plot of total_students vs the number of extracurricular activities offered using Seaborn."""
         sb.scatterplot(data=self.df, x="total_students", y="num_ext_act", color="olive")
         plt.xlabel("Number of students")
         plt.ylabel("Number of Extracurricular activities offered")
@@ -125,9 +115,7 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def num_sports(self):
-        """
-        Calculate and store the number of sports-related metrics for analysis.
-        """
+        """Calculate and store the number of sports-related metrics for analysis."""
         self.df["num_sports_boys"] = self.df['psal_sports_boys'].apply(lambda x: max(len(str(x).split(', ')), 0))
         self.df["num_sports_girls"] = self.df['psal_sports_girls'].apply(lambda x: max(len(str(x).split(', ')), 0))
         self.df["num_sports_coed"] = self.df['psal_sports_coed'].apply(lambda x: max(len(str(x).split(', ')), 0))
@@ -136,10 +124,7 @@ class ExploratoryAnalysis:
                                               'num_sports_othr']].sum(axis=1)
 
     def matplot_scatter_students_sports(self):
-        """
-        Generate and display scatter plots for total_students vs each sports category using Matplotlib.
-
-        """
+        """Generate and display scatter plots for total_students vs each sports category using Matplotlib."""
         fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
 
         ax[0, 0].scatter(x=self.df["total_students"], y=self.df["num_sports_tot"])
@@ -159,9 +144,7 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def scatter_scatter_students_sports(self):
-        """
-        Generate and display scatter plots for total_students vs each sports category using Seaborn.
-        """
+        """Generate and display scatter plots for total_students vs each sports category using Seaborn."""
         fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
 
         sb.scatterplot(data=self.df, x="total_students", y="num_sports_tot", ax=ax[0, 0], color="green")
@@ -181,10 +164,7 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def num_prtn(self):
-        """
-        Calculate and store the number of partner-related metrics for analysis.
-
-        """
+        """Calculate and store the number of partner-related metrics for analysis."""
         self.df["num_prtn_cbo"] = self.df['partner_cbo'].apply(lambda x: max(len(str(x).split(', ')), 0))
         self.df["num_prtn_hpt"] = self.df['partner_hospital'].apply(lambda x: max(len(str(x).split(', ')), 0))
         self.df["num_prtn_high"] = self.df['partner_highered'].apply(lambda x: max(len(str(x).split(', ')), 0))
@@ -199,9 +179,7 @@ class ExploratoryAnalysis:
              'num_prtn_fin', 'num_prtn_othr']].sum(axis=1)
 
     def matplot_scatter_students_vs_partners(self):
-        """
-        Generate and display a scatter plot of total_students vs the number of partner opportunities using Matplotlib.
-        """
+        """Generate and display a scatter plot of total_students vs the number of partner opportunities using Matplotlib."""
         plt.scatter(x=self.df["total_students"], y=self.df["num_prtn_tot"])
         plt.xlabel("Number of students")
         plt.ylabel("Number of Partner opportunities")
