@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 import pandas as pd
 import numpy as np
+import warnings
+
 
 class ExploratoryAnalysis:
 
@@ -43,10 +45,13 @@ class ExploratoryAnalysis:
     def population_borough(self):
         """Calculate and return the percentage population of each borough."""
         borough = self.df["borough"].value_counts(normalize=True) * 100
-        borough = pd.DataFrame({'borough': borough.index, 'values': np.round(borough.values, 2)})
+        return pd.DataFrame({'borough': borough.index, 'values': np.round(borough.values, 2)})
 
     def matplot_bar_borough(self):
         """Generate and display a barplot indicating the population of each borough using Matplotlib."""
+        borough = self.df["borough"].value_counts(normalize=True) * 100
+        borough = pd.DataFrame({'borough': borough.index, 'values': np.round(borough.values, 2)})
+
         plt.bar(borough["borough"], borough["values"])
         plt.xlabel("Borough of School")
         plt.ylabel("Percentage")
@@ -55,6 +60,9 @@ class ExploratoryAnalysis:
 
     def seaborn_bar_borough(self):
         """Generate and display a barplot indicating the population of each borough using Seaborn."""
+        borough = self.df["borough"].value_counts(normalize=True) * 100
+        borough = pd.DataFrame({'borough': borough.index, 'values': np.round(borough.values, 2)})
+
         ax = sb.barplot(data=borough, x="borough", y="values", palette="viridis")
         plt.xlabel("Borough of School")
         plt.ylabel("Percentage")
@@ -64,13 +72,14 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def matplot_bar_grpby_borough_tot_students(self):
-        """Generate and display a barplot showing the distribution of students enrolled in each borough using Matplotlib."""
-        data = self.df.groupby("borough").sum("total_students").iloc[:, 4]
+        
+        data = self.df.groupby("borough")["total_students"].sum()
         plt.bar(data.index, data.values)
         plt.xlabel("Borough of School")
         plt.ylabel("Number of Students")
         plt.title("Distribution of students enrolled in each Borough (using matplotlib)")
         return plt.show()
+    
 
     def seaborn_bar_borough_tot_students(self):
         """Generate and display a barplot showing the distribution of students enrolled in each borough using Seaborn."""
@@ -114,7 +123,7 @@ class ExploratoryAnalysis:
         plt.title("Distribution of total_students vs Number of Extracurricular activities offered (using seaborn)")
         return plt.show()
 
-    def num_sports(self):
+    def num_sports(self):    
         """Calculate and store the number of sports-related metrics for analysis."""
         self.df["num_sports_boys"] = self.df['psal_sports_boys'].apply(lambda x: max(len(str(x).split(', ')), 0))
         self.df["num_sports_girls"] = self.df['psal_sports_girls'].apply(lambda x: max(len(str(x).split(', ')), 0))
@@ -143,7 +152,7 @@ class ExploratoryAnalysis:
         plt.suptitle("Distributions of Number of students vs Sports Offered (using matplotlib)")
         return plt.show()
 
-    def scatter_scatter_students_sports(self):
+    def seaborn_scatter_students_sports(self):
         """Generate and display scatter plots for total_students vs each sports category using Seaborn."""
         fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
 
@@ -164,6 +173,7 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def num_prtn(self):
+                
         """Calculate and store the number of partner-related metrics for analysis."""
         self.df["num_prtn_cbo"] = self.df['partner_cbo'].apply(lambda x: max(len(str(x).split(', ')), 0))
         self.df["num_prtn_hpt"] = self.df['partner_hospital'].apply(lambda x: max(len(str(x).split(', ')), 0))
@@ -177,6 +187,7 @@ class ExploratoryAnalysis:
         self.df["num_prtn_tot"] = self.df[
             ['num_prtn_cbo', 'num_prtn_hpt', 'num_prtn_high', 'num_prtn_clt', 'num_prtn_nonprft', 'num_prtn_corp',
              'num_prtn_fin', 'num_prtn_othr']].sum(axis=1)
+        return self.df
 
     def matplot_scatter_students_vs_partners(self):
         """Generate and display a scatter plot of total_students vs the number of partner opportunities using Matplotlib."""
@@ -207,7 +218,7 @@ class ExploratoryAnalysis:
 
     def seaborn_bar_accessibility_vs_students(self):
         """Generate and display a barplot showing the distribution of the number of students vs School Accessibility Description using Seaborn."""
-        sb.barplot(schools, x="school_accessibility_description", y="total_students", errorbar=None)
+        sb.barplot(self.df , x="school_accessibility_description", y="total_students", errorbar=None)
         plt.xlabel("School Accessibility Description")
         plt.ylabel("Number of Students")
         plt.title("Distribution of number of students vs School Accessibility Description (using seaborn)")

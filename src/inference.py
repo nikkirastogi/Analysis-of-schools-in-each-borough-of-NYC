@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import seaborn as sb
+
 class Inferences:
     def __init__(self, data):
         """
@@ -9,18 +12,20 @@ class Inferences:
         """
         self.df = data
 
-    def heatmap1():
+    def heatmap1(self):
         """
         Generate and display a heatmap showing the correlation between Total Students,
         Number of Extracurricular Activities, Sports Offered, and Partner Opportunities.
 
         """
-        schools_corr = self.df[["total_students", "num_ext_act", "num_sports_tot", "num_prtn_tot"]].corr()
+        columns = ["total_students", "num_ext_act", "num_sports_tot", "num_prtn_tot"]
+        schools_corr = self.df[columns].corr()
+        #schools_corr = self.df["total_students", "num_ext_act", "num_sports_tot", "num_prtn_tot"].corr()
         sb.heatmap(schools_corr, annot=True)
         plt.title("Correlation between Total Students, Number of Extracurricular Activities, Sports Offered, and Partner Opportunities")
         return plt.show()
 
-    def heatmap2():
+    def heatmap2(self):
         """
         Generate and display a heatmap showing the correlation between Total Students
         and various categories of Sports Offered.
@@ -31,7 +36,7 @@ class Inferences:
         plt.title("Heatmap of Total Number of Students and Sports Offered")
         return plt.show()
 
-    def heatmap3():
+    def heatmap3(self):
         """
         Generate and display a heatmap showing the correlation between Total Students
         and different categories of Partner Opportunities.

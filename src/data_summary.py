@@ -21,8 +21,8 @@ class DataSummary:
         """Data Types for Each Attribute: To display the data types of each attribute in our dataset."""
         return "Data Types for Each Attribute:", self.df.dtypes
     
-    def total_students.desc(self):
+    def total_students_desc(self):
         return self.df.total_students.describe()
     
-    def check_null_students():
+    def check_null_students(self):
         return self.df.total_students.isnull().sum()
