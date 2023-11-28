@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 import pandas as pd
 import numpy as np
-import warnings
-
 
 class ExploratoryAnalysis:
 
@@ -102,6 +100,7 @@ class ExploratoryAnalysis:
             self.df['extracurricular_activities'].apply(lambda x: str(x).split(', ')).explode().nunique())
 
     def activities_desc(self):
+        self.df = self.df.copy()
         """Describe the field 'num_ext_act' representing the number of extracurricular activities."""
         self.df["num_ext_act"] = self.df['extracurricular_activities'].apply(
             lambda x: max(len(str(x).split(', ')), 0))
@@ -222,4 +221,8 @@ class ExploratoryAnalysis:
         plt.xlabel("School Accessibility Description")
         plt.ylabel("Number of Students")
         plt.title("Distribution of number of students vs School Accessibility Description (using seaborn)")
-        plt.show()
+        return plt.show()
+    
+    def updated_data(self):
+        return self.df
+        
