@@ -19,5 +19,6 @@ documentation = "https://github.com/nikkirastogi/The-Power-of-Data-Aggregation-G
 [tool.poetry.dependencies]
 python = "^3.6"
 pandas = "^1.3.3"
-seaborn = "^o.11.2"
+numpy = "^1.21.0"
+seaborn = "^0.11.2"
 matplotlib = "^3.4.3"
