@@ -18,7 +18,6 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students,
         Number of Extracurricular Activities, Sports Offered, and Partner Opportunities.
-
         """
         columns = ["total_students", "num_ext_act", "num_sports_tot", "num_prtn_tot"]
         schools_corr = self.df[columns].corr()
@@ -52,7 +51,6 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students
         and different categories of Partner Opportunities.
-
         """
         schools_corr = self.df[
             [
@@ -73,6 +71,10 @@ class Inferences:
         return plt.show()
 
     def research_ques2_scatter(self):
+        """
+        Generate and display a scatter plot showing the correlation between School Sports
+        Availability and Student Enrollment.
+        """
         df_subset = self.df[["num_sports_tot", "total_students"]]
 
         # Drop rows with missing values in 'school_sports' or 'total_students'
@@ -90,6 +92,10 @@ class Inferences:
         return plt.show()
 
     def research_ques3_pairplot(self):
+        """
+        Generate and display a pairplot to visualize relationships between Partnerships,
+        Extracurricular Activities, and Student Population.
+        """
         # Select relevant columns
         df_subset_rq3 = self.df[["total_students", "num_prtn_tot", "num_ext_act"]]
 
@@ -108,6 +114,10 @@ class Inferences:
         return plt.show()
 
     def research_ques4_bar(self):
+        """
+        Generate and display a bar plot for the top 10 schools based on the composite score
+        of offerings.
+        """
         # Select relevant columns
         df_subset = self.df[
             [
@@ -149,6 +159,9 @@ class Inferences:
         return plt.show()
 
     def research_ques4_scatter(self):
+        """
+        Generate and display a scatter plot of schools based on the composite score of offerings.
+        """
         # Select relevant columns
         df_subset = self.df[
             [
@@ -169,11 +182,6 @@ class Inferences:
                 "num_sports_tot",
             ]
         )
-
-        # Convert 'extracurricular_activities', 'partner_total', and 'school_sports' to numeric variables
-        # df_subset['extracurricular_activities'] = df_subset['extracurricular_activities'].apply(len)
-        # df_subset['partner_total'] = pd.to_numeric(df_subset['partner_total'], errors='coerce')
-        # df_subset['school_sports'] = pd.to_numeric(df_subset['school_sports'], errors='coerce')
 
         # Create a composite score for the richness of offerings
         df_subset["composite_score"] = (
@@ -202,6 +210,10 @@ class Inferences:
         return plt.show()
 
     def research_ques5_heatmap(self):
+        """
+        Generate and display a heatmap to visualize the distribution of extracurricular activities
+        across boroughs.
+        """
         df_subset_rq5 = self.df[["school_name", "borough", "num_ext_act"]]
 
         # Drop rows with missing values in relevant columns

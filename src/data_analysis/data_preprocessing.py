@@ -6,28 +6,57 @@ from matplotlib import pyplot as plt
 
 
 class DataPreprocessing:
+    """Class for performing data preprocessing tasks."""
+
     def __init__(self, data):
+        """
+        Initializes the DataPreprocessing class.
+
+        Parameters:
+        - data: DataFrame (input dataset for data preprocessing)
+        """
         self.df = data
-        return
 
     def set_option(self):
-        return pd.set_option(
-            "display.max_columns", None
-        )  # display all columns in a dataset
+        """
+        Set display options to show all columns in a dataset.
+        """
+        return pd.set_option("display.max_columns", None)
 
     def set_printoptions(self):
-        return np.set_printoptions(suppress=True)  # suppress scientific notation
+        """
+        Set print options to suppress scientific notation.
+        """
+        return np.set_printoptions(suppress=True)
 
     def print_five_rows(self):
+        """
+        Display the first five rows of the dataset.
+        """
         return self.df.head()
 
     def dataframe_shape(self):
+        """
+        Get the shape of the dataset.
+
+        Returns:
+        Tuple: The shape of the dataset (rows, cols).
+        """
         return "The shape of the dataset (rows, cols): ", self.df.shape
 
     def num_columns(self):
+        """
+        Get the columns present in the raw dataset.
+
+        Returns:
+        Tuple: Columns present in the raw dataset.
+        """
         return "Columns present in the raw dataset", self.df.columns
 
     def select_columns(self):
+        """
+        Select a subset of columns from the dataset.
+        """
         self.df = self.df[
             [
                 "dbn",
@@ -59,7 +88,11 @@ class DataPreprocessing:
         ]
         return self.df
 
-    # Check the number of null values in the columns
     def check_null(self):
-        """Missing values in Dataset"""
+        """
+        Check the number of null values in the columns.
+
+        Returns:
+        Series: Number of null values in each column.
+        """
         return self.df.isnull().sum()

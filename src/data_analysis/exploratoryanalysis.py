@@ -80,6 +80,9 @@ class ExploratoryAnalysis:
         return plt.show()
 
     def matplot_bar_grpby_borough_tot_students(self):
+        """
+        Generate and display a bar plot showing the distribution of students enrolled in each borough using Matplotlib.
+        """
         data = self.df.groupby("borough")["total_students"].sum()
         plt.bar(data.index, data.values)
         plt.xlabel("Borough of School")
