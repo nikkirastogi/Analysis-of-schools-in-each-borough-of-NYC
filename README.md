@@ -1,3 +1,4 @@
-# The-Power-of-Data-Aggregation-Grouping-Reshaping-and-Analysis
+# Analysis-of-schools-in-each-borough-of-NYC
 
-Perform EDA,solved Researched Questions by using Data-Aggregation-Grouping-Reshaping on dataset
+Perform EDA on dataset to get graphicakl representation of relationship between attributes.
+and also solved Researched Questions by using Data-Aggregation-Grouping-Reshaping on dataset

@@ -3,7 +3,7 @@ requires = ["setuptools>=40.6.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "The-Power-of-Data-Aggregation-Grouping-Reshaping-and-Analysis"
+name = "Analysis-of-schools-in-each-borough-of-NYC"
 dynamic = ['version']
 description = "Performing EDA,solved Researched Questions by using Data-Aggregation-Grouping-Reshaping on dataset"
 authors = [{name = "Nikki Rastogi", email = "nrastog1@mail.yu.edu"}]
@@ -13,8 +13,8 @@ requires-python = ">=3.6"
 
 [project.urls]
 homepage = "https://github.com/nikkirastogi"
-repository = "https://github.com/nikkirastogi/The-Power-of-Data-Aggregation-Grouping-Reshaping-and-Analysis/tree/main/src"
-documentation = "https://github.com/nikkirastogi/The-Power-of-Data-Aggregation-Grouping-Reshaping-and-Analysis/blob/main/README.md"
+repository = "https://github.com/nikkirastogi/Analysis-of-schools-in-each-borough-of-NYC/tree/main/src"
+documentation = "https://github.com/nikkirastogi/Analysis-of-schools-in-each-borough-of-NYC/blob/main/README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6"
