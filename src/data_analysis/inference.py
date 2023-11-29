@@ -13,11 +13,45 @@ class Inferences:
           The input data containing relevant information.
         """
         self.df = data
+        
+    def num_sports(self):
+        """ Calculate and store the number of sports-related metrics for analysis."""
+        self.df["num_sports_boys"] = self.df["psal_sports_boys"].apply(
+            lambda x: max(len(str(x).split(", ")), 0)
+        )
+        self.df["num_sports_girls"] = self.df["psal_sports_girls"].apply(
+            lambda x: max(len(str(x).split(", ")), 0)
+        )
+        self.df["num_sports_coed"] = self.df["psal_sports_coed"].apply(
+            lambda x: max(len(str(x).split(", ")), 0)
+        )
+        self.df["num_sports_othr"] = self.df["school_sports"].apply(
+            lambda x: max(len(str(x).split(", ")), 0)
+        )
+        self.df["num_sports_tot"] = self.df[
+            [
+                "num_sports_boys",
+                "num_sports_girls",
+                "num_sports_coed",
+                "num_sports_othr",
+            ]
+        ].sum(axis=1)
+        return
 
     def heatmap1(self):
         """
         Generate and display a heatmap showing the correlation between Total Students,
         Number of Extracurricular Activities, Sports Offered, and Partner Opportunities.
+        
+        Steps:
+        1. Select relevant columns: 'total_students', 'num_ext_act', 'num_sports_tot',
+           and 'num_prtn_tot'.
+        2. Calculate the correlation matrix for the selected columns.
+        3. Generate a heatmap with correlation values annotated.
+        
+        Return:
+        - Display the heatmap.
+
         """
         columns = ["total_students", "num_ext_act", "num_sports_tot", "num_prtn_tot"]
         schools_corr = self.df[columns].corr()
@@ -31,7 +65,15 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students
         and various categories of Sports Offered.
-
+        
+        Steps:
+        1. Select relevant columns: 'total_students', 'num_sports_boys',
+           'num_sports_girls', 'num_sports_coed', 'num_sports_othr', and 'num_sports_tot'.
+        2. Calculate the correlation matrix for the selected columns.
+        3. Generate a heatmap with correlation values annotated.
+        
+        Return:
+        - Display the heatmap.
         """
         schools_corr = self.df[
             [
@@ -51,6 +93,17 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students
         and different categories of Partner Opportunities.
+        
+        Steps:
+        1. Select relevant columns: 'total_students', 'num_prtn_cbo', 'num_prtn_hpt',
+           'num_prtn_high', 'num_prtn_clt', 'num_prtn_nonprft', 'num_prtn_corp',
+           'num_prtn_fin', 'num_prtn_othr', and 'num_prtn_tot'.
+        2. Calculate the correlation matrix for the selected columns.
+        3. Generate a heatmap with correlation values annotated.
+        
+        Return:
+        - Display the heatmap.
+
         """
         schools_corr = self.df[
             [
@@ -72,8 +125,17 @@ class Inferences:
 
     def research_ques2_scatter(self):
         """
-        Generate and display a scatter plot showing the correlation between School Sports
-        Availability and Student Enrollment.
+        This function aims to visually explore the relationship between the availability
+        of school sports and the total student enrollment.
+
+        Steps:
+        1. Select relevant columns: 'num_sports_tot' and 'total_students'.
+        2. Drop rows with missing values in 'num_sports_tot' or 'total_students'.
+        3. Create a scatter plot to visualize the correlation.
+
+        Returns:
+        - Displays the generated scatter plot.
+
         """
         df_subset = self.df[["num_sports_tot", "total_students"]]
 
@@ -93,8 +155,18 @@ class Inferences:
 
     def research_ques3_pairplot(self):
         """
-        Generate and display a pairplot to visualize relationships between Partnerships,
-        Extracurricular Activities, and Student Population.
+        This function aims to provide a visual exploration of the relationships between
+        the number of partnerships, extracurricular activities, and the total student
+        population in schools.
+        
+        Steps:
+        1. Select relevant columns: 'total_students', 'num_prtn_tot', and 'num_ext_act'.
+        2. Drop rows with missing values in relevant columns.
+        3. Create a pairplot to visualize the relationships.
+
+        Returns:
+        - Displays the generated pairplot.
+
         """
         # Select relevant columns
         df_subset_rq3 = self.df[["total_students", "num_prtn_tot", "num_ext_act"]]
@@ -115,8 +187,22 @@ class Inferences:
 
     def research_ques4_bar(self):
         """
-        Generate and display a bar plot for the top 10 schools based on the composite score
-        of offerings.
+        This function aims to visually represent the 10 top-performing schools
+        based on a composite score that considers variables such as extracurricular
+        activities, partnerships, sports participation, and total students.
+
+        Steps:
+        1. Select relevant columns: 'school_name', 'num_ext_act', 'num_prtn_tot',
+           'num_sports_tot', and 'total_students'.
+        2. Drop rows with missing values in relevant columns.
+        3. Create a composite score for the richness of offerings by summing
+           'num_ext_act', 'num_prtn_tot', and 'num_sports_tot'.
+        4. Rank schools based on the composite score.
+        5. Generate a bar plot for the top 10 schools based on the composite score.
+
+        Returns:
+        - Displays the generated bar plot.
+
         """
         # Select relevant columns
         df_subset = self.df[
@@ -160,7 +246,24 @@ class Inferences:
 
     def research_ques4_scatter(self):
         """
-        Generate and display a scatter plot of schools based on the composite score of offerings.
+        This function investigates the feasibility of creating composite indices or scores
+        that represent the overall richness of a school's offerings. It considers variables
+        such as extracurricular activities, partnerships, and sports participation.
+
+        Steps:
+        1. Select relevant columns: 'school_name', 'extracurricular_activities',
+           'num_ext_act', 'num_prtn_tot', and 'num_sports_tot'.
+        2. Drop rows with missing values in relevant columns.
+        3. Create a composite score for the richness of offerings by summing
+           'num_ext_act', 'num_prtn_tot', and 'num_sports_tot'.
+        4. Generate a scatter plot with 'num_ext_act' on the x-axis, 'num_prtn_tot' on
+           the y-axis, and 'num_sports_tot' represented by marker size. The color of
+           markers represents the composite score.
+        5. Display the scatter plot with appropriate labels and legend.
+        
+        Returns:
+        - Displays the generated scatter plot.
+
         """
         # Select relevant columns
         df_subset = self.df[
@@ -211,8 +314,24 @@ class Inferences:
 
     def research_ques5_heatmap(self):
         """
-        Generate and display a heatmap to visualize the distribution of extracurricular activities
-        across boroughs.
+        This function aims to investigate the distribution of extracurricular activities
+        in different boroughs, identifying patterns and trends. Insights gained can inform
+        efforts to enhance opportunities and increase participation among students
+
+        Steps:
+        1. Extract relevant columns: 'school_name', 'borough', and 'num_ext_act'.
+        2. Remove rows with missing values in 'borough' and 'num_ext_act'.
+        3. Group the subset by 'borough' and 'num_ext_act', counting occurrences.
+        4. Create a pivot table to summarize the data.
+        5. Plot a heatmap to visualize the distribution.
+
+        This function aims to investigate the distribution of extracurricular activities
+        in different boroughs, identifying patterns and trends. Insights gained can inform
+        efforts to enhance opportunities and increase participation among students.
+
+        Returns:
+        - Displays the generated heatmap.
+
         """
         df_subset_rq5 = self.df[["school_name", "borough", "num_ext_act"]]
 

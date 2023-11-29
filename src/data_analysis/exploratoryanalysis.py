@@ -28,6 +28,7 @@ class ExploratoryAnalysis:
 
     def matplot_hist_total_students(self):
         """Generate and display a histogram of the total number of students using Matplotlib."""
+        
         plt.hist(self.df["total_students"], bins=20)
         plt.xlabel("Total Students")
         plt.ylabel("Frequency")
@@ -148,93 +149,6 @@ class ExploratoryAnalysis:
         )
         return plt.show()
 
-    def num_sports(self):
-        """Calculate and store the number of sports-related metrics for analysis."""
-        self.df["num_sports_boys"] = self.df["psal_sports_boys"].apply(
-            lambda x: max(len(str(x).split(", ")), 0)
-        )
-        self.df["num_sports_girls"] = self.df["psal_sports_girls"].apply(
-            lambda x: max(len(str(x).split(", ")), 0)
-        )
-        self.df["num_sports_coed"] = self.df["psal_sports_coed"].apply(
-            lambda x: max(len(str(x).split(", ")), 0)
-        )
-        self.df["num_sports_othr"] = self.df["school_sports"].apply(
-            lambda x: max(len(str(x).split(", ")), 0)
-        )
-        self.df["num_sports_tot"] = self.df[
-            [
-                "num_sports_boys",
-                "num_sports_girls",
-                "num_sports_coed",
-                "num_sports_othr",
-            ]
-        ].sum(axis=1)
-
-    def matplot_scatter_students_sports(self):
-        """Generate and display scatter plots for total_students vs each sports category using Matplotlib."""
-        fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
-
-        ax[0, 0].scatter(x=self.df["total_students"], y=self.df["num_sports_tot"])
-        ax[0, 0].set_xlabel("Number of Students")
-        ax[0, 0].set_ylabel("Total number of sports offered")
-        ax[0, 1].scatter(x=self.df["total_students"], y=self.df["num_sports_boys"])
-        ax[0, 1].set_xlabel("Number of Students")
-        ax[0, 1].set_ylabel("Number of sports offered for Boys")
-        ax[1, 0].scatter(x=self.df["total_students"], y=self.df["num_sports_girls"])
-        ax[1, 0].set_xlabel("Number of Students")
-        ax[1, 0].set_ylabel("Number of sports offered for Girls")
-        ax[1, 1].scatter(x=self.df["total_students"], y=self.df["num_sports_coed"])
-        ax[1, 1].set_xlabel("Number of Students")
-        ax[1, 1].set_ylabel("Number of sports offered for both Boys and Girls")
-
-        plt.suptitle(
-            "Distributions of Number of students vs Sports Offered (using matplotlib)"
-        )
-        return plt.show()
-
-    def seaborn_scatter_students_sports(self):
-        """Generate and display scatter plots for total_students vs each sports category using Seaborn."""
-        fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10, 10))
-
-        sb.scatterplot(
-            data=self.df,
-            x="total_students",
-            y="num_sports_tot",
-            ax=ax[0, 0],
-            color="green",
-        )
-        ax[0, 0].set_xlabel("Number of Students")
-        ax[0, 0].set_ylabel("Total number of sports offered")
-        sb.scatterplot(
-            data=self.df, x="total_students", y="num_sports_boys", ax=ax[0, 1]
-        )
-        ax[0, 1].set_xlabel("Number of Students")
-        ax[0, 1].set_ylabel("Number of sports offered for Boys")
-        sb.scatterplot(
-            data=self.df,
-            x="total_students",
-            y="num_sports_girls",
-            ax=ax[1, 0],
-            color="plum",
-        )
-        ax[1, 0].set_xlabel("Number of Students")
-        ax[1, 0].set_ylabel("Number of sports offered for Girls")
-        sb.scatterplot(
-            data=self.df,
-            x="total_students",
-            y="num_sports_coed",
-            ax=ax[1, 1],
-            color="orange",
-        )
-        ax[1, 0].set_xlabel("Number of Students")
-        ax[1, 0].set_ylabel("Number of sports offered for both Boys and Girls")
-
-        plt.suptitle(
-            "Distributions of Number of students vs Sports Offered (using seaborn)"
-        )
-        return plt.show()
-
     def num_prtn(self):
         """Calculate and store the number of partner-related metrics for analysis."""
         self.df["num_prtn_cbo"] = self.df["partner_cbo"].apply(
@@ -299,36 +213,3 @@ class ExploratoryAnalysis:
             "Distribution of total_students vs Number of Partner Opportunities available (using seaborn)"
         )
         return plt.show()
-
-    def matplot_bar_accessibility_vs_students(self):
-        """Generate and display a barplot showing the distribution of the number of students vs School Accessibility Description using Matplotlib."""
-        data = (
-            self.df.groupby("school_accessibility_description")
-            .sum("total_students")
-            .iloc[:, 4]
-        )
-        plt.bar(data.index, data.values)
-        plt.xlabel("School Accessibility Description")
-        plt.ylabel("Number of Students")
-        plt.title(
-            "Distribution of number of students vs School Accessibility Description (using matplotlib)"
-        )
-        return plt.show()
-
-    def seaborn_bar_accessibility_vs_students(self):
-        """Generate and display a barplot showing the distribution of the number of students vs School Accessibility Description using Seaborn."""
-        sb.barplot(
-            self.df,
-            x="school_accessibility_description",
-            y="total_students",
-            errorbar=None,
-        )
-        plt.xlabel("School Accessibility Description")
-        plt.ylabel("Number of Students")
-        plt.title(
-            "Distribution of number of students vs School Accessibility Description (using seaborn)"
-        )
-        return plt.show()
-
-    def updated_data(self):
-        return self.df

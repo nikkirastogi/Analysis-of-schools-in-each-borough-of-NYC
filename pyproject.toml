@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "The-Power-of-Data-Aggregation-Grouping-Reshaping-and-Analysis"
-version = "0.1.0"
+dynamic = ['version']
 description = "Performing EDA,solved Researched Questions by using Data-Aggregation-Grouping-Reshaping on dataset"
 authors = [{name = "Nikki Rastogi", email = "nrastog1@mail.yu.edu"}]
 license = {file = "LICENSE"}
