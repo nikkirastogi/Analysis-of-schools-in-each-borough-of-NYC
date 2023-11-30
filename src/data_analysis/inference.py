@@ -13,9 +13,9 @@ class Inferences:
           The input data containing relevant information.
         """
         self.df = data
-        
+
     def num_sports(self):
-        """ Calculate and store the number of sports-related metrics for analysis."""
+        """Calculate and store the number of sports-related metrics for analysis."""
         self.df["num_sports_boys"] = self.df["psal_sports_boys"].apply(
             lambda x: max(len(str(x).split(", ")), 0)
         )
@@ -42,13 +42,13 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students,
         Number of Extracurricular Activities, Sports Offered, and Partner Opportunities.
-        
+
         Steps:
         1. Select relevant columns: 'total_students', 'num_ext_act', 'num_sports_tot',
            and 'num_prtn_tot'.
         2. Calculate the correlation matrix for the selected columns.
         3. Generate a heatmap with correlation values annotated.
-        
+
         Return:
         - Display the heatmap.
 
@@ -65,13 +65,13 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students
         and various categories of Sports Offered.
-        
+
         Steps:
         1. Select relevant columns: 'total_students', 'num_sports_boys',
            'num_sports_girls', 'num_sports_coed', 'num_sports_othr', and 'num_sports_tot'.
         2. Calculate the correlation matrix for the selected columns.
         3. Generate a heatmap with correlation values annotated.
-        
+
         Return:
         - Display the heatmap.
         """
@@ -93,14 +93,14 @@ class Inferences:
         """
         Generate and display a heatmap showing the correlation between Total Students
         and different categories of Partner Opportunities.
-        
+
         Steps:
         1. Select relevant columns: 'total_students', 'num_prtn_cbo', 'num_prtn_hpt',
            'num_prtn_high', 'num_prtn_clt', 'num_prtn_nonprft', 'num_prtn_corp',
            'num_prtn_fin', 'num_prtn_othr', and 'num_prtn_tot'.
         2. Calculate the correlation matrix for the selected columns.
         3. Generate a heatmap with correlation values annotated.
-        
+
         Return:
         - Display the heatmap.
 
@@ -158,7 +158,7 @@ class Inferences:
         This function aims to provide a visual exploration of the relationships between
         the number of partnerships, extracurricular activities, and the total student
         population in schools.
-        
+
         Steps:
         1. Select relevant columns: 'total_students', 'num_prtn_tot', and 'num_ext_act'.
         2. Drop rows with missing values in relevant columns.
@@ -260,7 +260,7 @@ class Inferences:
            the y-axis, and 'num_sports_tot' represented by marker size. The color of
            markers represents the composite score.
         5. Display the scatter plot with appropriate labels and legend.
-        
+
         Returns:
         - Displays the generated scatter plot.
 

@@ -28,7 +28,7 @@ class ExploratoryAnalysis:
 
     def matplot_hist_total_students(self):
         """Generate and display a histogram of the total number of students using Matplotlib."""
-        
+
         plt.hist(self.df["total_students"], bins=20)
         plt.xlabel("Total Students")
         plt.ylabel("Frequency")
