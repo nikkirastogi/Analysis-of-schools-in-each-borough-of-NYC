@@ -16,12 +16,34 @@ from sklearn.model_selection import cross_val_score, KFold
 
 
 class Prediction1:
+    """
+    A class for making predictions using various techniques, including regression, cross-validation,
+    and clustering, based on the provided dataset.
+
+    Parameters:
+    - data: pandas DataFrame, the dataset containing relevant information.
+
+    Methods:
+    - prediction1_using_regression(): Performs regression-based prediction using linear regression.
+    - prediction1_using_crossvalidation(): Performs prediction using cross-validation with random forest regression.
+    - prediction1_using_clustering(): Performs clustering using K-means algorithm.
+    - prediction2(): Performs prediction using random forest regression with hyperparameter tuning.
+    - prediction3(): Performs clustering and visualization using K-means algorithm.
+    """
     
     def __init__(self, data):
+        """
+        Initialize the Prediction1 class with the provided dataset.
+
+        Parameters:
+        - data: pandas DataFrame, the dataset containing relevant information.
+        """
         self.df = data
 
     def prediction1_using_regression(self):
-        
+        """
+        Perform prediction using linear regression, including data preprocessing, training, evaluation, and visualization.
+        """
 
         # Feature selection
         features = ['grade_span_min', 'grade_span_max', 'extracurricular_activities']
@@ -69,6 +91,10 @@ class Prediction1:
         plt.show()
         
     def prediction1_using_crossvalidation(self):
+        """
+        Perform prediction using cross-validation with random forest regression, including data preprocessing,
+        model training, evaluation, and cross-validation visualization.
+        """
         features = ['grade_span_min', 'grade_span_max', 'school_type', 'num_ext_act']
         X = self.df[features]
         y = self.df['total_students']
@@ -121,7 +147,9 @@ class Prediction1:
         return plt.show()
 
     def prediction1_using_clustering(self):
-        
+        """
+        Perform clustering using K-means algorithm and visualize the clusters.
+        """
         features = ['grade_span_min', 'grade_span_max', 'num_ext_act']
         X = self.df[features]
     
@@ -143,6 +171,10 @@ class Prediction1:
         plt.show()
     
     def prediction2(self):
+        """
+        Perform prediction using random forest regression with hyperparameter tuning,
+        including data preprocessing, model training, evaluation, and visualization.
+        """
         # Extract relevant features
         features = self.df[['num_ext_act', 'num_sports_boys', 'num_sports_girls', 'num_sports_coed']]
 
@@ -204,6 +236,9 @@ class Prediction1:
 
     
     def prediction3(self):
+        """
+        Perform clustering using K-means algorithm, visualize the clusters, and provide insights based on the clusters.
+        """
         
         # Feature selection
         features = ['extracurricular_activities', 'psal_sports_boys', 'psal_sports_girls', 'number_programs']
