@@ -302,14 +302,14 @@ class Predictions:
         """
         
         # Feature selection
-        features = ['extracurricular_activities', 'psal_sports_boys', 'psal_sports_girls', 'number_programs']
+        features = ['num_ext_act', 'num_sports_boys', 'num_sports_girls', 'number_programs','borough']
 
         # Drop rows with missing values
         df = self.df[features].dropna()
 
         # Preprocessing
-        numeric_features = self.df.select_dtypes(include=['int64', 'float64']).columns
-        categorical_features = self.df.select_dtypes(include=['object']).columns
+        numeric_features = df.select_dtypes(include=['int64', 'float64']).columns
+        categorical_features = df.select_dtypes(include=['object']).columns
         numeric_transformer = Pipeline(steps=[
             ('imputer', SimpleImputer(strategy='mean')),
             ('scaler', StandardScaler())
@@ -325,13 +325,13 @@ class Predictions:
             ])
 
         # Apply preprocessing
-        X = preprocessor.fit_transform(self.df)
+        X = preprocessor.fit_transform(df)
 
         # K-means clustering
-        kmeans = KMeans(n_clusters=2, n_init=10, random_state=42)  # You can adjust the number of clusters
-        self.df['cluster'] = kmeans.fit_predict(X)
+        kmeans = KMeans(n_clusters=5, n_init=10, random_state=42)  # You can adjust the number of clusters
+        df['cluster'] = kmeans.fit_predict(X)
         
         # Visualize clusters
-        sns.pairplot(self.df, hue='cluster', palette='Dark2')
+        sns.pairplot(df, hue='cluster', palette='Dark2')
         plt.tight_layout()
         return plt.show()
